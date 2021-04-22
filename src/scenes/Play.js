@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
 
         // platform
         this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'cloud_1').setOrigin(0.5, 0);
+        this.character = new Character(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -38,26 +39,17 @@ class Play extends Phaser.Scene {
             this.ground.add(groundTile);
         }
 
-        // set up my alien son 👽
-        this.alien = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE);
-        this.alien.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
-
-        // set up Phaser-provided cursor key input
-        cursors = this.input.keyboard.createCursorKeys();
-
         // add physics collider
-        this.physics.add.collider(this.alien, this.ground);
-        this.physics.add.collider(this.alien, this.player.p1);
+        this.physics.add.collider(this.character.cBody, this.ground);
+        this.physics.add.collider(this.character.cBody, this.player.p1);
     }
 
     update() {
         // move player
         this.player.update();
+        this.character.update();
 
-        if(this.alien.body.touching.down){
-            this.alien.body.setVelocityY(JUMP_VELOCITY);
-        }
         // wrap physics object(s) .wrap(gameObject, padding)
-        this.physics.world.wrap(this.alien, this.alien.width/2);
+        this.physics.world.wrap(this.character, this.width/2);
     }
 }
