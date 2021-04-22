@@ -40,18 +40,6 @@ class Play extends Phaser.Scene {
             groundTile.body.allowGravity = false;
             this.ground.add(groundTile);
         }
-        for(let i = tileSize*7; i < game.config.width-tileSize*4; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*5, 'platformer_atlas', 'block').setScale(SCALE).setOrigin(0);
-            groundTile.body.immovable = true;
-            groundTile.body.allowGravity = false;
-            this.ground.add(groundTile);
-        }
-        for(let i = tileSize*2; i < game.config.width-tileSize*13; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize*9, 'platformer_atlas', 'block').setScale(SCALE).setOrigin(0);
-            groundTile.body.immovable = true;
-            groundTile.body.allowGravity = false;
-            this.ground.add(groundTile);
-        }
 
         // set up my alien son 👽
         this.alien = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE);
@@ -72,19 +60,15 @@ class Play extends Phaser.Scene {
             // see: https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Components.Animation.html#play__anchor
             // play(key [, ignoreIfPlaying] [, startFrame])
             this.alien.anims.play('walk', true);
-            this.leftKey.tint = 0xFACADE;   // tint key
         } else if(cursors.right.isDown) {
             this.alien.body.setAccelerationX(this.ACCELERATION);
             this.alien.resetFlip();
             this.alien.anims.play('walk', true);
-            this.rightKey.tint = 0xFACADE;  // tint key
         } else {
             // set acceleration to 0 so DRAG will take over
             this.alien.body.setAccelerationX(0);
             this.alien.body.setDragX(this.DRAG);
             this.alien.anims.play('idle');
-            this.leftKey.tint = 0xFFFFFF;   // un-tint keys
-            this.rightKey.tint = 0xFFFFFF;  
         }
 
         // jump
@@ -95,9 +79,6 @@ class Play extends Phaser.Scene {
         // note: there is unfortunately no .justDown property in Phaser's cursor object
         if(this.alien.body.touching.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
             this.alien.body.setVelocityY(this.JUMP_VELOCITY);
-            this.upKey.tint = 0xFACADE;
-        } else {
-            this.upKey.tint = 0xFFFFFF;
         }
 
         // wrap physics object(s) .wrap(gameObject, padding)

@@ -4,23 +4,19 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('RocketPatrolMenu', 'assets/RocketPatrolMenu.png');
+        // set load path
+        this.load.path = 'assets/';
+        // take care of all of our asset loading now
+        this.load.atlas('platformer_atlas', 'kenny_sheet.png', 'kenny_sheet.json');
+        this.load.image('groundScroll', 'ground.png');
     }
 
     create() {
         
-        this.rocketPatrolMenu = this.add.tileSprite(
-            0,30,0,0, 'RocketPatrolMenu'
-        ).setOrigin(0,0);
-
-        this.rocketPatrolMenu.displayWidth = game.config.width*1;
-        this.rocketPatrolMenu.scaleY = this.rocketPatrolMenu.scaleX;
+        this.scene.start('playScene');
     }
 
     update() {
-        if (Phaser.Input.Cursor.JustDown(leftClick)) {
-          //this.sound.play('sfx_select');
-          this.scene.start('playScene');    
-        }
-      }
+        
+    }
 }
