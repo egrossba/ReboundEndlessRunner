@@ -8,16 +8,16 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        this.physics.world.gravity.y = GRAVITY;
+
         // platform
         this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'cloud_1').setOrigin(0.5, 0);
 
-        // variables and settings
-        this.ACCELERATION = 500;
-        this.MAX_X_VEL = 500;   // pixels/second
-        this.MAX_Y_VEL = 5000;
-        this.DRAG = 600;    // DRAG < ACCELERATION = icy slide
-        this.JUMP_VELOCITY = -1000;
-        this.physics.world.gravity.y = 2000;
+        // create keys
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // set bg color
         this.cameras.main.setBackgroundColor('#227B96');
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
 
         // set up my alien son 👽
         this.alien = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE);
-        this.alien.setMaxVelocity(this.MAX_X_VEL, this.MAX_Y_VEL);
+        this.alien.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
 
         // set up Phaser-provided cursor key input
         cursors = this.input.keyboard.createCursorKeys();
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
         this.player.update();
 
         if(this.alien.body.touching.down){
-            this.alien.body.setVelocityY(this.JUMP_VELOCITY);
+            this.alien.body.setVelocityY(JUMP_VELOCITY);
         }
         // wrap physics object(s) .wrap(gameObject, padding)
         this.physics.world.wrap(this.alien, this.alien.width/2);

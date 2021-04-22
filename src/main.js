@@ -28,3 +28,12 @@ let game = new Phaser.Game(config);
 
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
+
+// variables and settings
+let VELOCITY = 500;
+let MAX_X_VEL = 500;   // pixels/second
+let MAX_Y_VEL = 500;
+let JUMP_VELOCITY = -1000;
+let GRAVITY = 1000;
+
+let keyLEFT, keyUP, keyDOWN, keyRIGHT;
