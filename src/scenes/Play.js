@@ -8,13 +8,16 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        // platform
+        this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'cloud_1').setOrigin(0.5, 0);
+
         // variables and settings
         this.ACCELERATION = 500;
         this.MAX_X_VEL = 500;   // pixels/second
         this.MAX_Y_VEL = 5000;
         this.DRAG = 600;    // DRAG < ACCELERATION = icy slide
         this.JUMP_VELOCITY = -1000;
-        this.physics.world.gravity.y = 3000;
+        this.physics.world.gravity.y = 2000;
 
         // set bg color
         this.cameras.main.setBackgroundColor('#227B96');
@@ -25,12 +28,6 @@ class Play extends Phaser.Scene {
 	    for(let y = game.config.height-70; y >= 35; y -= 35) {
             graphics.lineBetween(0, y, game.config.width, y);
         }
-
-        // add some physics clouds
-        this.cloud01 = this.physics.add.sprite(600, 100, 'platformer_atlas', 'cloud_1');
-        this.cloud01.body.setAllowGravity(false).setVelocityX(25);
-        this.cloud02 = this.physics.add.sprite(200, 200, 'platformer_atlas', 'cloud_2');
-        this.cloud02.body.setAllowGravity(false).setVelocityX(45);
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -50,40 +47,17 @@ class Play extends Phaser.Scene {
 
         // add physics collider
         this.physics.add.collider(this.alien, this.ground);
+        this.physics.add.collider(this.alien, this.player.p1);
     }
 
     update() {
-        // check keyboard input
-        if(cursors.left.isDown) {
-            this.alien.body.setAccelerationX(-this.ACCELERATION);
-            this.alien.setFlip(true, false);
-            // see: https://photonstorm.github.io/phaser3-docs/Phaser.GameObjects.Components.Animation.html#play__anchor
-            // play(key [, ignoreIfPlaying] [, startFrame])
-            this.alien.anims.play('walk', true);
-        } else if(cursors.right.isDown) {
-            this.alien.body.setAccelerationX(this.ACCELERATION);
-            this.alien.resetFlip();
-            this.alien.anims.play('walk', true);
-        } else {
-            // set acceleration to 0 so DRAG will take over
-            this.alien.body.setAccelerationX(0);
-            this.alien.body.setDragX(this.DRAG);
-            this.alien.anims.play('idle');
-        }
+        // move player
+        this.player.update();
 
-        // jump
-        if(!this.alien.body.touching.down) {
-            this.alien.anims.play('jump', true);
-        }
-        // use JustDown to avoid 'pogo' jumps if you player keeps the up key held down
-        // note: there is unfortunately no .justDown property in Phaser's cursor object
-        if(this.alien.body.touching.down && Phaser.Input.Keyboard.JustDown(cursors.up)) {
+        if(this.alien.body.touching.down){
             this.alien.body.setVelocityY(this.JUMP_VELOCITY);
         }
-
         // wrap physics object(s) .wrap(gameObject, padding)
-        this.physics.world.wrap(this.cloud01, this.cloud01.width/2);
-        this.physics.world.wrap(this.cloud02, this.cloud02.width/2);
         this.physics.world.wrap(this.alien, this.alien.width/2);
     }
 }
