@@ -44,8 +44,8 @@ class Play extends Phaser.Scene {
         }
 
         // add physics collider
-        this.physics.add.collider(this.character.cBody, this.ground);
-        this.physics.add.collider(this.character.cBody, this.player.p1);
+        this.physics.add.collider(this.character, this.ground);
+        this.physics.add.collider(this.character, this.player.p1);
     }
 
     update() {
