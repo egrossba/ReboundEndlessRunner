@@ -5,13 +5,29 @@ class Character extends Phaser.GameObjects.Sprite {
         this.cBody.body.allowGravity = true;
         this.cBody.body.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
         this.cBody.body.setCollideWorldBounds(true);
-        this.mode = up;
+        this.mode = 'up';
     }
 
     update() {
         if(this.cBody.body.touching.down){
-            this.cBody.body.setVelocityY(JUMP_VELOCITY);
-            
+            switch(this.mode){
+                case 'up':
+                    this.cBody.body.setVelocityY(JUMP_VELOCITY);
+                    this.cBody.body.setVelocityX(0);
+                    break;
+                case 'down':
+                    this.cBody.body.setVelocityY(JUMP_VELOCITY/3);
+                    this.cBody.body.setVelocityX(0);
+                    break;
+                case 'left':
+                    this.cBody.body.setVelocityY(JUMP_VELOCITY*2/3);
+                    this.cBody.body.setVelocityX(-VELOCITY/3);
+                    break;
+                case 'right':
+                    this.cBody.body.setVelocityY(JUMP_VELOCITY*2/3);
+                    this.cBody.body.setVelocityX(VELOCITY/3);
+                    break;
+            }
         }
     }
 }

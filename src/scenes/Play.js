@@ -55,16 +55,16 @@ class Play extends Phaser.Scene {
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
-            this.character.mode = left;
+            this.character.mode = 'left';
         }
         if(Phaser.Input.Keyboard.JustDown(keyW)) {
-            this.character.mode = up;        
+            this.character.mode = 'up';        
         }
         if(Phaser.Input.Keyboard.JustDown(keyS)) {
-            this.character.mode = down;        
+            this.character.mode = 'down';        
         }
         if(Phaser.Input.Keyboard.JustDown(keyD)) {
-            this.character.mode = right;        
+            this.character.mode = 'right';        
         }
 
         // wrap physics object(s) .wrap(gameObject, padding)
