@@ -4,13 +4,14 @@ class Character extends Phaser.GameObjects.Sprite {
         this.cBody = scene.physics.add.sprite(game.config.width/2, game.config.height/2, texture, frame).setScale(SCALE).setOrigin(0);
         this.cBody.body.allowGravity = true;
         this.cBody.body.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
+        this.cBody.body.setCollideWorldBounds(true);
+        this.mode = up;
     }
 
     update() {
         if(this.cBody.body.touching.down){
             this.cBody.body.setVelocityY(JUMP_VELOCITY);
+            
         }
-
-        this.cBody.body.setCollideWorldBounds(true);
     }
 }

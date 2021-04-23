@@ -19,7 +19,11 @@ class Play extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        
         // set bg color
         this.cameras.main.setBackgroundColor('#227B96');
 
@@ -48,6 +52,20 @@ class Play extends Phaser.Scene {
         // move player
         this.player.update();
         this.character.update();
+
+        // switch forms
+        if(Phaser.Input.Keyboard.JustDown(keyA)) {
+            this.character.mode = left;
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyW)) {
+            this.character.mode = up;        
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyS)) {
+            this.character.mode = down;        
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyD)) {
+            this.character.mode = right;        
+        }
 
         // wrap physics object(s) .wrap(gameObject, padding)
         this.physics.world.wrap(this.character, this.width/2);

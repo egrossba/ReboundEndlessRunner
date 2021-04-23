@@ -7,7 +7,7 @@ class Platform extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        // check keyboard input for x
+        // movement
         if(keyLEFT.isDown) {
             this.p1.body.setVelocityX(-VELOCITY);
             //this.p1.setFlip(true, false);
@@ -31,7 +31,6 @@ class Platform extends Phaser.GameObjects.Sprite {
             this.p1.body.setVelocityY(0);
             //this.p1.anims.play('idle');
         }
-
 
         this.p1.body.setCollideWorldBounds(true);
     }
