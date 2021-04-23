@@ -2,8 +2,11 @@ class Platform extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         this.p1 = scene.physics.add.sprite(game.config.width/2, game.config.height/2, texture, frame).setScale(SCALE).setOrigin(0);
+        this.p1.setScale(1);
         this.p1.body.allowGravity = false;
         this.p1.body.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
+        this.p1.body.setCollideWorldBounds(true);
+        this.mode = 'up';
     }
 
     update() {
@@ -32,6 +35,20 @@ class Platform extends Phaser.GameObjects.Sprite {
             //this.p1.anims.play('idle');
         }
 
-        this.p1.body.setCollideWorldBounds(true);
+        // form changes
+        switch(this.mode){
+            case 'up':
+                this.p1.setFlip(false, false);
+                break;
+            case 'down':
+                this.p1.setFlip(false, true);
+                break;
+            case 'left':
+                this.p1.setFlip(false, false);
+                break;
+            case 'right':
+                this.p1.setFlip(true, false);
+                break;
+        }
     }
 }

@@ -11,8 +11,8 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = GRAVITY;
 
         // platform
-        this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'cloud_1').setOrigin(0.5, 0);
-        this.character = new Character(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE);
+        this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'fly_normal').setScale(SCALE).setOrigin(0);
+        this.character = new Character(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -56,15 +56,19 @@ class Play extends Phaser.Scene {
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
             this.character.mode = 'left';
+            this.player.mode = 'left';
         }
         if(Phaser.Input.Keyboard.JustDown(keyW)) {
-            this.character.mode = 'up';        
+            this.character.mode = 'up';   
+            this.player.mode = 'up';       
         }
         if(Phaser.Input.Keyboard.JustDown(keyS)) {
-            this.character.mode = 'down';        
+            this.character.mode = 'down'; 
+            this.player.mode = 'down';       
         }
         if(Phaser.Input.Keyboard.JustDown(keyD)) {
-            this.character.mode = 'right';        
+            this.character.mode = 'right';   
+            this.player.mode = 'right';     
         }
 
         // wrap physics object(s) .wrap(gameObject, padding)
