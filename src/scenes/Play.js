@@ -13,7 +13,8 @@ class Play extends Phaser.Scene {
         // platform
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
         this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
-
+        this.obstacle1 = new Obstacle(this, game.config.width + borderUISize*6, borderUISize*4, 'platformer_atlas', 'cloud_1').setOrigin(0, 0);
+        
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -38,6 +39,7 @@ class Play extends Phaser.Scene {
 
         // add physics collider
         this.physics.add.collider(this.character, this.player);
+        this.physics.add.collider(this.character, this.obstacle1);
 
         // gameover bool
         this.youLost = false;
@@ -51,6 +53,7 @@ class Play extends Phaser.Scene {
         // move player
         this.player.update();
         this.character.update();
+        this.obstacle1.update();
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
