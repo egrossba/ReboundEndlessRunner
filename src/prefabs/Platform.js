@@ -1,54 +1,46 @@
-class Platform extends Phaser.GameObjects.Sprite {
+class Platform extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
-        this.p1 = scene.physics.add.sprite(game.config.width/2, game.config.height/2, texture, frame).setScale(SCALE).setOrigin(0);
-        this.p1.setScale(1);
-        this.p1.body.immovable = true;
-        this.p1.body.allowGravity = false;
-        this.p1.body.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL);
-        this.p1.body.setCollideWorldBounds(true);
-        this.mode = 'up';
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        this.body.allowGravity = false;
+        this.setImmovable(true);
+        this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
+        this.mode = 'up';        
+        this.setScale(1);
     }
 
     update() {
         // movement
         if(keyLEFT.isDown) {
-            this.p1.body.setVelocityX(-VELOCITY);
-            //this.p1.setFlip(true, false);
-            //this.p1.anims.play('jump', true);
+            this.setVelocityX(-VELOCITY);
         } else if(keyRIGHT.isDown) {
-            this.p1.body.setVelocityX(VELOCITY);
-            //this.p1.resetFlip();
-            //this.p1.anims.play('jump', true);
+            this.setVelocityX(VELOCITY);
         } else {
-            this.p1.body.setVelocityX(0);
-            //this.p1.anims.play('idle');
+            this.setVelocityX(0);
         }
 
         if(keyUP.isDown) {
-            this.p1.body.setVelocityY(-VELOCITY);
-            //this.p1.anims.play('jump', true);
+            this.setVelocityY(-VELOCITY);
         } else if(keyDOWN.isDown) {
-            this.p1.body.setVelocityY(VELOCITY);
-            //this.p1.anims.play('jump', true);
+            this.setVelocityY(VELOCITY);
         } else {
-            this.p1.body.setVelocityY(0);
-            //this.p1.anims.play('idle');
+            this.setVelocityY(0);
         }
 
         // form changes
         switch(this.mode){
             case 'up':
-                this.p1.setFlip(false, false);
+                this.setFlip(false, false);
                 break;
             case 'down':
-                this.p1.setFlip(false, true);
+                this.setFlip(false, true);
                 break;
             case 'left':
-                this.p1.setFlip(false, false);
+                this.setFlip(false, false);
                 break;
             case 'right':
-                this.p1.setFlip(true, false);
+                this.setFlip(true, false);
                 break;
         }
     }

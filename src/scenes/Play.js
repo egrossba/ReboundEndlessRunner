@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = GRAVITY;
 
         // platform
-        this.player = new Platform(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'platformer_atlas', 'fly_normal').setScale(SCALE).setOrigin(0);
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
         this.character = new Character(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
 
         // create keys
@@ -45,7 +45,7 @@ class Play extends Phaser.Scene {
 
         // add physics collider
         this.physics.add.collider(this.character, this.ground);
-        this.physics.add.collider(this.character, this.player.p1);
+        this.physics.add.collider(this.character, this.player);
     }
 
     update() {
@@ -70,8 +70,5 @@ class Play extends Phaser.Scene {
             this.character.mode = 'right';   
             this.player.mode = 'right';     
         }
-
-        // wrap physics object(s) .wrap(gameObject, padding)
-        this.physics.world.wrap(this.character, this.width/2);
     }
 }
