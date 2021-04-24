@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
 
         // platform
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
-        this.character = new Character(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
+        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -27,13 +27,6 @@ class Play extends Phaser.Scene {
         // set bg color
         this.cameras.main.setBackgroundColor('#227B96');
 
-        // draw grid lines for jump height reference
-        let graphics = this.add.graphics();
-        graphics.lineStyle(2, 0xFFFFFF, 0.1);
-	    for(let y = game.config.height-70; y >= 35; y -= 35) {
-            graphics.lineBetween(0, y, game.config.width, y);
-        }
-
         // make ground tiles group
         this.ground = this.add.group();
         for(let i = 0; i < game.config.width; i += tileSize) {
@@ -44,11 +37,17 @@ class Play extends Phaser.Scene {
         }
 
         // add physics collider
-        this.physics.add.collider(this.character, this.ground);
         this.physics.add.collider(this.character, this.player);
+
+        // gameover bool
+        this.youLost = false;
     }
 
     update() {
+        if(this.youLost && Phaser.Input.Keyboard.JustDown(keyW)){
+            this.scene.restart();
+        }
+
         // move player
         this.player.update();
         this.character.update();
@@ -70,5 +69,28 @@ class Play extends Phaser.Scene {
             this.character.mode = 'right';   
             this.player.mode = 'right';     
         }
+
+        this.physics.world.collide(this.character, this.ground, this.gameOver, null, this);
+    }
+
+    gameOver(){
+        this.youLost = true;
+
+        this.player.setAlpha(0);
+        this.character.setAlpha(0);
+
+        let loserConfig = {
+            fontFamily: 'Courier',
+            fontSize: '48px',
+            backgroundColor: '',
+            color: '#DC143C',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            }
+        }
+
+        this.loserText = this.add.text(game.config.width/2 - 200, game.config.height/2, '[W]ow you suck', loserConfig);
     }
 }
