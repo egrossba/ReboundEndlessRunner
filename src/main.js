@@ -35,5 +35,6 @@ let MAX_X_VEL = 500;   // pixels/second
 let MAX_Y_VEL = 500;
 let JUMP_VELOCITY = -1000;
 let GRAVITY = 1000;
+let SCROLL_SPEED = 3;
 
 let keyLEFT, keyUP, keyDOWN, keyRIGHT, keyW, keyA, keyS, keyD;

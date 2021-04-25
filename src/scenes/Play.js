@@ -10,11 +10,26 @@ class Play extends Phaser.Scene {
     create() {
         this.physics.world.gravity.y = GRAVITY;
 
-        // platform
-        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
-        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
-        this.obstacle1 = new Obstacle(this, game.config.width + borderUISize*6, borderUISize*4, 'platformer_atlas', 'cloud_1').setOrigin(0, 0);
+        // set bg
+        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
+        this.background.setTint('808080');
+
+        // platform and character
+        this.player = new Platform(this, game.config.width/6, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
+        this.character = new Character(this, game.config.width/6, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
         
+        // obstacles
+        this.obstacles = this.add.group();
+        this.obstacle1 = new Obstacle(this, game.config.width, borderUISize*4, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle2 = new Obstacle(this, game.config.width - 200, game.config.height - 200, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle3 = new Obstacle(this, game.config.width - 400, borderUISize, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle4 = new Obstacle(this, game.config.width, game.config.height - 150, 'platformer_atlas', 'cloud_1').setOrigin(0);
+
+        this.obstacles.add(this.obstacle1);
+        this.obstacles.add(this.obstacle2);
+        this.obstacles.add(this.obstacle3);
+        this.obstacles.add(this.obstacle4);
+
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -24,9 +39,6 @@ class Play extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        
-        // set bg color
-        this.cameras.main.setBackgroundColor('#227B96');
 
         // make ground tiles group
         this.ground = this.add.group();
@@ -39,7 +51,7 @@ class Play extends Phaser.Scene {
 
         // add physics collider
         this.physics.add.collider(this.character, this.player);
-        this.physics.add.collider(this.character, this.obstacle1);
+        this.physics.add.collider(this.character, this.obstacles);
 
         // gameover bool
         this.youLost = false;
@@ -50,10 +62,15 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
 
+        this.background.tilePositionX += SCROLL_SPEED;
+
         // move player
         this.player.update();
         this.character.update();
         this.obstacle1.update();
+        this.obstacle2.update();
+        this.obstacle3.update();
+        this.obstacle4.update();
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
