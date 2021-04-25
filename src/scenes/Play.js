@@ -23,12 +23,14 @@ class Play extends Phaser.Scene {
         this.obstacle1 = new Obstacle(this, game.config.width, borderUISize*4, 'platformer_atlas', 'cloud_1').setOrigin(0);
         this.obstacle2 = new Obstacle(this, game.config.width - 200, game.config.height - 200, 'platformer_atlas', 'cloud_1').setOrigin(0);
         this.obstacle3 = new Obstacle(this, game.config.width - 400, borderUISize, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle4 = new Obstacle(this, game.config.width, game.config.height - 150, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle4 = new Obstacle(this, game.config.width - 300, game.config.height - 150, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle5 = new Obstacle(this, game.config.width - 100, game.config.height - 300, 'platformer_atlas', 'cloud_1').setOrigin(0);
 
         this.obstacles.add(this.obstacle1);
         this.obstacles.add(this.obstacle2);
         this.obstacles.add(this.obstacle3);
         this.obstacles.add(this.obstacle4);
+        this.obstacles.add(this.obstacle5);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -70,6 +72,7 @@ class Play extends Phaser.Scene {
         this.obstacle2.update();
         this.obstacle3.update();
         this.obstacle4.update();
+        this.obstacle5.update();
 
         if(this.player.body.touching.up){
             this.character.update();
