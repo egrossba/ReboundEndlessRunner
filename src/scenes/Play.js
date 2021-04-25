@@ -98,6 +98,8 @@ class Play extends Phaser.Scene {
 
         this.player.setAlpha(0);
         this.character.setAlpha(0);
+        this.character.body.enable = false;
+
 
         let loserConfig = {
             fontFamily: 'Courier',
