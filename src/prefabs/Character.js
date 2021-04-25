@@ -3,12 +3,12 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
+        this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true).setBounce(1);
         this.mode = 'up';
     }
 
     update() {
-        if(this.body.touching.down){
+        if(!this.body.touching.up){
             switch(this.mode){
                 case 'up':
                     this.setVelocity(0, JUMP_VELOCITY);

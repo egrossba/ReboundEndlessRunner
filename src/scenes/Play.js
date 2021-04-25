@@ -15,8 +15,8 @@ class Play extends Phaser.Scene {
         this.background.setTint('808080');
 
         // platform and character
-        this.player = new Platform(this, game.config.width/6, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
-        this.character = new Character(this, game.config.width/6, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
+        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
         
         // obstacles
         this.obstacles = this.add.group();
@@ -50,8 +50,8 @@ class Play extends Phaser.Scene {
         }
 
         // add physics collider
-        this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles);
+        this.physics.add.collider(this.character, this.player);
 
         // gameover bool
         this.youLost = false;
@@ -62,15 +62,18 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
 
-        this.background.tilePositionX += SCROLL_SPEED;
+        this.background.tilePositionY -= SCROLL_SPEED;
 
         // move player
         this.player.update();
-        this.character.update();
         this.obstacle1.update();
         this.obstacle2.update();
         this.obstacle3.update();
         this.obstacle4.update();
+
+        if(this.player.body.touching.up){
+            this.character.update();
+        }
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
