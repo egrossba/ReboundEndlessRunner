@@ -8,7 +8,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
         this.mode = 'up';    
         this.fakeGrav = 100;    
-        this.setScale(1);
+        this.setScale(1.25);
     }
 
     update() {

@@ -42,21 +42,36 @@ class Play extends Phaser.Scene {
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        // make ground tiles group
-        this.ground = this.add.group();
-        for(let i = 0; i < game.config.width; i += tileSize) {
-            let groundTile = this.physics.add.sprite(i, game.config.height - tileSize, 'platformer_atlas', 'block').setScale(SCALE).setOrigin(0);
-            groundTile.body.immovable = true;
-            groundTile.body.allowGravity = false;
-            this.ground.add(groundTile);
-        }
-
-        // add physics collider
+        // make monster
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 80, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0);
+        
+        // add physics colliders
         this.physics.add.collider(this.character, this.obstacles);
         this.physics.add.collider(this.character, this.player);
 
         // gameover bool
         this.youLost = false;
+
+        // score
+        this.score = 0;
+        this.scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#FFFFFF',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 150
+        }
+
+        this.scoreText = this.add.text(game.config.width - this.scoreConfig.fixedWidth - borderPadding, 
+            borderPadding, this.score, this.scoreConfig);
+
+        this.incScore = this.time.addEvent({ delay: 100, callback: this.tickScore, callbackScope: this, loop: true });
+
     }
 
     update() {
@@ -66,16 +81,26 @@ class Play extends Phaser.Scene {
 
         this.background.tilePositionY -= SCROLL_SPEED;
 
-        // move player
+        // match monster with character
+        this.monster.x = this.character.x - 50;
+        
+        // move player and obstacles
         this.player.update();
         this.obstacle1.update();
         this.obstacle2.update();
         this.obstacle3.update();
         this.obstacle4.update();
         this.obstacle5.update();
+        this.monster.update();
 
+        // bounce character off platform
         if(this.player.body.touching.up){
             this.character.update();
+        }
+
+        // bounce character off clouds
+        if(this.character.body.touching.up){
+            this.character.body.setVelocityY(VELOCITY);
         }
 
         // switch forms
@@ -96,7 +121,7 @@ class Play extends Phaser.Scene {
             this.player.mode = 'right';     
         }
 
-        this.physics.world.collide(this.character, this.ground, this.gameOver, null, this);
+        this.physics.world.collide(this.character, this.monster, this.gameOver, null, this);
     }
 
     gameOver(){
@@ -120,5 +145,13 @@ class Play extends Phaser.Scene {
         }
 
         this.loserText = this.add.text(game.config.width/2 - 200, game.config.height/2, '[W]ow you suck', loserConfig);
+    }
+
+    tickScore() {
+        // update score
+        if(!this.youLost){
+            this.score += 1;
+            this.scoreText.text = this.score;
+        }
     }
 }
