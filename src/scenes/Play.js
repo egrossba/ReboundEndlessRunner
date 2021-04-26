@@ -20,17 +20,15 @@ class Play extends Phaser.Scene {
         
         // obstacles
         this.obstacles = this.add.group();
-        this.obstacle1 = new Obstacle(this, game.config.width, borderUISize*4, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle2 = new Obstacle(this, game.config.width - 200, game.config.height - 200, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle3 = new Obstacle(this, game.config.width - 400, borderUISize, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle4 = new Obstacle(this, game.config.width - 300, game.config.height - 150, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle5 = new Obstacle(this, game.config.width - 100, game.config.height - 300, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle1 = new Obstacle(this, game.config.width - 130, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle2 = new Obstacle(this, game.config.width - 260, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle3 = new Obstacle(this, game.config.width - 390, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacle4 = new Obstacle(this, game.config.width - 520, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
 
         this.obstacles.add(this.obstacle1);
         this.obstacles.add(this.obstacle2);
         this.obstacles.add(this.obstacle3);
         this.obstacles.add(this.obstacle4);
-        this.obstacles.add(this.obstacle5);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -83,14 +81,13 @@ class Play extends Phaser.Scene {
 
         // match monster with character
         this.monster.x = this.character.x - 50;
-        
+
         // move player and obstacles
         this.player.update();
         this.obstacle1.update();
         this.obstacle2.update();
         this.obstacle3.update();
         this.obstacle4.update();
-        this.obstacle5.update();
         this.monster.update();
 
         // bounce character off platform
