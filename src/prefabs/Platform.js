@@ -4,9 +4,10 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.body.allowGravity = false;
-        this.setImmovable(true);
+        this.body.immovable = true;
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
-        this.mode = 'up';        
+        this.mode = 'up';    
+        this.fakeGrav = 100;    
         this.setScale(1);
     }
 
@@ -25,7 +26,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         } else if(keyDOWN.isDown) {
             this.setVelocityY(VELOCITY);
         } else {
-            this.setVelocityY(0);
+            this.setVelocityY(this.fakeGrav);
         }
 
         // form changes

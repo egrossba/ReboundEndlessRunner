@@ -8,7 +8,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        this.setVelocityY(MAX_Y_VEL - 100);
+        this.setVelocityY(VELOCITY/2);
 
         if (this.y >= game.config.height){
             this.reset();
