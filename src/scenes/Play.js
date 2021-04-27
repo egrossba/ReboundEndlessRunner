@@ -46,9 +46,9 @@ class Play extends Phaser.Scene {
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
-            if(c.body.touching.up){
-                //c.body.setVelocityY(VELOCITY);
-                c.y = o.y + o.height/2 + c.height + 2;
+            if(c.body.touching.up && this.player.y < c.y + 50){
+                // failsafe for cloud collision bug, ty Adam Smith
+                c.y = o.y + o.height/2 + c.height + .1;
             }
         });
 
