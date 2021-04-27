@@ -9,6 +9,8 @@ class Play extends Phaser.Scene {
 
     create() {
         this.physics.world.gravity.y = GRAVITY;
+        this.scrollSpeed = 3;
+        this.bonusFactor = 1;
 
         // set bg
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
@@ -62,7 +64,7 @@ class Play extends Phaser.Scene {
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 150
+            fixedWidth: 100
         }
 
         this.scoreText = this.add.text(game.config.width - this.scoreConfig.fixedWidth - borderPadding, 
@@ -77,17 +79,17 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
 
-        this.background.tilePositionY -= SCROLL_SPEED;
+        this.background.tilePositionY -= this.scrollSpeed;
 
         // match monster with character
         this.monster.x = this.character.x - 50;
 
         // move player and obstacles
-        this.player.update();
         this.obstacle1.update();
         this.obstacle2.update();
         this.obstacle3.update();
         this.obstacle4.update();
+        this.player.update();
         this.monster.update();
 
         // bounce character off platform
@@ -116,6 +118,16 @@ class Play extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyD)) {
             this.character.mode = 'right';   
             this.player.mode = 'right';     
+        }
+
+        // increase difficulty
+        if(this.score != 0 && this.score < 4000 && this.score % 500 == 0){
+            this.player.fakeGrav += this.bonusFactor;
+            this.obstacle1.bonusVel += this.bonusFactor;
+            this.obstacle2.bonusVel += this.bonusFactor;
+            this.obstacle3.bonusVel += this.bonusFactor;
+            this.obstacle4.bonusVel += this.bonusFactor;
+            this.scrollSpeed += 0.02;
         }
 
         this.physics.world.collide(this.character, this.monster, this.gameOver, null, this);

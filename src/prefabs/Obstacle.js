@@ -5,10 +5,11 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this);
         this.body.allowGravity = false;
         this.setImmovable(true).setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(false);
+        this.bonusVel = 0;
     }
 
     update() {
-        this.setVelocityY(VELOCITY/2);
+        this.setVelocityY(VELOCITY/2 + this.bonusVel);
 
         if (this.y >= game.config.height){
             this.reset();
