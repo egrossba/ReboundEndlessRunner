@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(c.body.touching.up){
                 c.setVelocityY(VELOCITY);
-                if(this.player.y < c.y + 100){
+                if(this.player.y < c.y + 75){
                     // failsafe for cloud collision bug, ty Adam Smith
                     c.y = o.y + o.height/2 + c.height + .1;
                 }
@@ -157,7 +157,7 @@ class Play extends Phaser.Scene {
             }
         }
 
-        this.loserText = this.add.text(game.config.width/2 - 200, game.config.height/2, '[W]ow you suck', loserConfig);
+        this.loserText = this.add.text(game.config.width/2 - 150, game.config.height/2 - 50, '[W]hoops...', loserConfig);
     }
 
     tickScore() {
