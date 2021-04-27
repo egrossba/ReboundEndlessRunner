@@ -52,7 +52,7 @@ class Play extends Phaser.Scene {
 
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
-        this.physics.add.overlap(this.character, this.obstacles, (c, o) => {
+        this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(c.body.touching.up){
                 c.setVelocityY(VELOCITY);
                 if(this.player.y < c.y + c.height/2 + this.player.height){
