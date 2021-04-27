@@ -1,9 +1,6 @@
 class Obstacle extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
-        // scene.add.existing(this);
-        // scene.physics.add.existing(this);
-        
     }
 
     init(){
@@ -24,6 +21,5 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         let rand = Math.random()*5;
         this.y = -game.config.height - rand*250;
         this.alpha = 1;
-
     }
 }

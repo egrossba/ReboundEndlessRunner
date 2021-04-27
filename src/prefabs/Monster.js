@@ -3,6 +3,9 @@ class Monster extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
+    }
+
+    init(){
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.setCollideWorldBounds(true);

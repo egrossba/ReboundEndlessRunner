@@ -19,7 +19,11 @@ class Play extends Phaser.Scene {
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
         this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
-        
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 80, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0);
+        this.player.init();
+        this.character.init();
+        this.monster.init();
+
         // obstacles
         this.obstacles = this.physics.add.group({runChildUpdate: true});
         for(let i = 0; i < 4; i++){
@@ -31,18 +35,16 @@ class Play extends Phaser.Scene {
 
 
         // create keys
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDOWN= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        // keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        // keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        // keyDOWN= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        // keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        // make monster
-        this.monster = new Monster(this, game.config.width/2, game.config.height - 80, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0);
-        
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
@@ -153,7 +155,7 @@ class Play extends Phaser.Scene {
     tickScore() {
         // update score
         if(!this.youLost){
-            this.score += 1;
+            this.score += 10;
             this.scoreText.text = this.score;
         }
     }
