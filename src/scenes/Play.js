@@ -16,14 +16,6 @@ class Play extends Phaser.Scene {
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
         this.background.setTint('808080');
 
-        // platform and character
-        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0.5);
-        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0.5);
-        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0.5);
-        this.player.init();
-        this.character.init();
-        this.monster.init();
-
         // obstacles
         this.obstacles = this.physics.add.group({runChildUpdate: true});
         for(let i = 0; i < 4; i++){
@@ -37,6 +29,14 @@ class Play extends Phaser.Scene {
             this.add.existing(obs);
             obs.init();
         }
+
+        // platform and character
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0.5);
+        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0.5);
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0.5);
+        this.player.init();
+        this.character.init();
+        this.monster.init();
 
 
         // create keys
