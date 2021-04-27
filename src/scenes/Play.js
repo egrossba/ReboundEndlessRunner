@@ -48,7 +48,8 @@ class Play extends Phaser.Scene {
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
-            if(c.body.touching.up && this.player.y < c.y + 50){
+            c.setVelocityY(VELOCITY);
+            if(c.body.touching.up && this.player.y < c.y + 100){
                 // failsafe for cloud collision bug, ty Adam Smith
                 c.y = o.y + o.height/2 + c.height + .1;
             }
@@ -119,10 +120,7 @@ class Play extends Phaser.Scene {
         // increase difficulty
         if(this.score != 0 && this.score < 4000 && this.score % 500 == 0){
             this.player.fakeGrav += this.bonusFactor;
-            this.obstacle1.bonusVel += this.bonusFactor;
-            this.obstacle2.bonusVel += this.bonusFactor;
-            this.obstacle3.bonusVel += this.bonusFactor;
-            this.obstacle4.bonusVel += this.bonusFactor;
+            this.obstacles.propertyValueInc('bonusVel', this.bonusFactor);
             this.scrollSpeed += 0.02;
         }
 
@@ -155,7 +153,7 @@ class Play extends Phaser.Scene {
     tickScore() {
         // update score
         if(!this.youLost){
-            this.score += 10;
+            this.score += 1;
             this.scoreText.text = this.score;
         }
     }
