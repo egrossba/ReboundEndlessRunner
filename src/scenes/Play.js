@@ -57,7 +57,7 @@ class Play extends Phaser.Scene {
                 c.setVelocityY(VELOCITY);
                 if(this.player.y < c.y + c.height/2 + this.player.height){
                     // failsafe for cloud collision bug, ty Adam Smith
-                    c.y = o.y + o.height/2 + this.player.height + 1;
+                    c.y = this.player.y + 1;
                 }
             }
         });
