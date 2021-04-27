@@ -52,12 +52,12 @@ class Play extends Phaser.Scene {
 
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
-        this.physics.add.collider(this.character, this.obstacles, (c, o) => {
+        this.physics.add.overlap(this.character, this.obstacles, (c, o) => {
             if(c.body.touching.up){
                 c.setVelocityY(VELOCITY);
-                if(this.player.y < c.y + 75){
+                if(this.player.y < c.y + c.height/2 + this.player.height){
                     // failsafe for cloud collision bug, ty Adam Smith
-                    c.y = o.y + o.height/2 + c.height + .1;
+                    c.y = o.y + o.height/2 + this.player.height;
                 }
             }
         });
@@ -140,7 +140,6 @@ class Play extends Phaser.Scene {
     gameOver(){
         this.youLost = true;
 
-        this.player.setAlpha(0);
         this.character.setAlpha(0);
         this.character.body.enable = false;
 
