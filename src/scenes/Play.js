@@ -17,9 +17,9 @@ class Play extends Phaser.Scene {
         this.background.setTint('808080');
 
         // platform and character
-        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0);
-        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
-        this.monster = new Monster(this, game.config.width/2, game.config.height - 80, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0);
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0.5);
+        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0.5);
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0.5);
         this.player.init();
         this.character.init();
         this.monster.init();
@@ -27,7 +27,8 @@ class Play extends Phaser.Scene {
         // obstacles
         this.obstacles = this.physics.add.group({runChildUpdate: true});
         for(let i = 0; i < 4; i++){
-            let obs = new Obstacle(this, game.config.width - 130*(i+1), game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+            let obs = new Obstacle(this, game.config.width - 65, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0.5);
+            obs.x -= obs.width * i + 3;
             this.obstacles.add(obs);
             this.add.existing(obs);
             obs.init();
@@ -48,10 +49,12 @@ class Play extends Phaser.Scene {
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
-            c.setVelocityY(VELOCITY);
-            if(c.body.touching.up && this.player.y < c.y + 100){
-                // failsafe for cloud collision bug, ty Adam Smith
-                c.y = o.y + o.height/2 + c.height + .1;
+            if(c.body.touching.up){
+                c.setVelocityY(VELOCITY);
+                if(this.player.y < c.y + 100){
+                    // failsafe for cloud collision bug, ty Adam Smith
+                    c.y = o.y + o.height/2 + c.height + .1;
+                }
             }
         });
 
@@ -88,7 +91,7 @@ class Play extends Phaser.Scene {
         this.background.tilePositionY -= this.scrollSpeed;
 
         // match monster with character
-        this.monster.x = this.character.x - 50;
+        this.monster.x = this.character.x;
 
         // move player and obstacles
         this.player.update();
@@ -98,6 +101,9 @@ class Play extends Phaser.Scene {
         if(this.player.body.touching.up){
             this.character.bounce();
         }
+
+        // rotate character
+        this.character.angle += this.character.body.velocity.x/100;
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {

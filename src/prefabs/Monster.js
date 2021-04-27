@@ -14,7 +14,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite {
     update() {
         this.x = Phaser.Math.Clamp(
             this.x,
-            0,
-            game.config.width - 130);
+            this.width + borderPadding + 5,
+            game.config.width - this.width - borderPadding - 5);
     }
 }
