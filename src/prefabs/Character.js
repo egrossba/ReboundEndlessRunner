@@ -7,22 +7,20 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.mode = 'up';
     }
 
-    update() {
-        if(!this.body.touching.up){
-            switch(this.mode){
-                case 'up':
-                    this.setVelocity(0, JUMP_VELOCITY);
-                    break;
-                case 'down':
-                    this.setVelocity(0, JUMP_VELOCITY/3);
-                    break;
-                case 'left':
-                    this.setVelocity(-VELOCITY/2, JUMP_VELOCITY*3/4);
-                    break;
-                case 'right':
-                    this.setVelocity(VELOCITY/2, JUMP_VELOCITY*3/4);
-                    break;
-            }
+    bounce() {
+        switch(this.mode){
+            case 'up':
+                this.setVelocity(0, JUMP_VELOCITY);
+                break;
+            case 'down':
+                this.setVelocity(0, JUMP_VELOCITY/3);
+                break;
+            case 'left':
+                this.setVelocity(-VELOCITY/2, JUMP_VELOCITY*3/4);
+                break;
+            case 'right':
+                this.setVelocity(VELOCITY/2, JUMP_VELOCITY*3/4);
+                break;
         }
     }
 }

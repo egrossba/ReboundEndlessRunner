@@ -21,16 +21,14 @@ class Play extends Phaser.Scene {
         this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0);
         
         // obstacles
-        this.obstacles = this.add.group();
-        this.obstacle1 = new Obstacle(this, game.config.width - 130, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle2 = new Obstacle(this, game.config.width - 260, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle3 = new Obstacle(this, game.config.width - 390, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
-        this.obstacle4 = new Obstacle(this, game.config.width - 520, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+        this.obstacles = this.physics.add.group({runChildUpdate: true});
+        for(let i = 0; i < 4; i++){
+            let obs = new Obstacle(this, game.config.width - 130*(i+1), game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0);
+            this.obstacles.add(obs);
+            this.add.existing(obs);
+            obs.init();
+        }
 
-        this.obstacles.add(this.obstacle1);
-        this.obstacles.add(this.obstacle2);
-        this.obstacles.add(this.obstacle3);
-        this.obstacles.add(this.obstacle4);
 
         // create keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -46,8 +44,13 @@ class Play extends Phaser.Scene {
         this.monster = new Monster(this, game.config.width/2, game.config.height - 80, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0);
         
         // add physics colliders
-        this.physics.add.collider(this.character, this.obstacles);
         this.physics.add.collider(this.character, this.player);
+        this.physics.add.collider(this.character, this.obstacles, (c, o) => {
+            if(c.body.touching.up){
+                //c.body.setVelocityY(VELOCITY);
+                c.y = o.y + o.height/2 + c.height + 2;
+            }
+        });
 
         // gameover bool
         this.youLost = false;
@@ -85,21 +88,12 @@ class Play extends Phaser.Scene {
         this.monster.x = this.character.x - 50;
 
         // move player and obstacles
-        this.obstacle1.update();
-        this.obstacle2.update();
-        this.obstacle3.update();
-        this.obstacle4.update();
         this.player.update();
         this.monster.update();
 
         // bounce character off platform
         if(this.player.body.touching.up){
-            this.character.update();
-        }
-
-        // bounce character off clouds
-        if(this.character.body.touching.up){
-            this.character.body.setVelocityY(VELOCITY);
+            this.character.bounce();
         }
 
         // switch forms
