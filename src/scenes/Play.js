@@ -53,7 +53,7 @@ class Play extends Phaser.Scene {
         // add physics colliders
         this.physics.add.collider(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
-            if(c.body.touching.up){
+            if(o.body.touching.down && c.body.touching.up){
                 c.setVelocityY(VELOCITY);
                 if(this.player.y < c.y + c.height/2 + this.player.height){
                     // failsafe for cloud collision bug, ty Adam Smith
@@ -102,7 +102,7 @@ class Play extends Phaser.Scene {
         this.monster.update();
 
         // bounce character off platform
-        if(this.player.body.touching.up){
+        if(this.player.body.touching.up && !this.character.body.touching.up){
             this.character.bounce();
         }
 
