@@ -12,7 +12,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        if (this.y >= game.config.height){
+        if (this.y >= game.config.height + this.height/2){
             this.reset();
         }
     }

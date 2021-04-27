@@ -29,6 +29,10 @@ class Play extends Phaser.Scene {
         for(let i = 0; i < 4; i++){
             let obs = new Obstacle(this, game.config.width - 65, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0.5);
             obs.x -= obs.width * i + 3;
+            // failsafe cloud if they end up in row
+            if(i == 1){
+                obs.y += 100;
+            }
             this.obstacles.add(obs);
             this.add.existing(obs);
             obs.init();
