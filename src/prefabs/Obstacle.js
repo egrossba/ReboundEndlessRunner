@@ -19,7 +19,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
     reset() {
         let rand = Math.random()*5;
-        this.y = -game.config.height - rand*250;
+        this.y = -rand*250;
         this.alpha = 1;
     }
 }

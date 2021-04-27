@@ -9,14 +9,14 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true).setBounce(1);
         this.mode = 'up';
     }
-    
+
     bounce() {
         switch(this.mode){
             case 'up':
                 this.setVelocity(0, JUMP_VELOCITY);
                 break;
             case 'down':
-                this.setVelocity(0, JUMP_VELOCITY/3);
+                this.setVelocity(0, JUMP_VELOCITY/2);
                 break;
             case 'left':
                 this.setVelocity(-VELOCITY/2, JUMP_VELOCITY*3/4);
