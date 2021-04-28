@@ -125,9 +125,10 @@ class Play extends Phaser.Scene {
 
         // increase difficulty
         if(this.score != 0 && this.score < 4000 && this.score % 500 == 0){
-            this.player.fakeGrav += this.bonusFactor;
-            this.obstacles.propertyValueInc('bonusVel', this.bonusFactor);
+            this.player.fakeGrav += this.bonusFactor/20;
+
             this.scrollSpeed += 0.02;
+            this.bonusFactor++;
         }
 
         this.physics.world.collide(this.character, this.monster, this.gameOver, null, this);
@@ -138,7 +139,6 @@ class Play extends Phaser.Scene {
 
         this.character.setAlpha(0);
         this.character.body.enable = false;
-
 
         let loserConfig = {
             fontFamily: 'Courier',
@@ -158,7 +158,7 @@ class Play extends Phaser.Scene {
     tickScore() {
         // update score
         if(!this.youLost){
-            this.score += 1;
+            this.score += 100;
             this.scoreText.text = this.score;
         }
     }
