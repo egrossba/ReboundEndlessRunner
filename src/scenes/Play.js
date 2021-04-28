@@ -125,8 +125,10 @@ class Play extends Phaser.Scene {
 
         // increase difficulty
         if(this.score != 0 && this.score < 4000 && this.score % 500 == 0){
-            this.player.fakeGrav += this.bonusFactor/20;
-
+            this.player.fakeGrav += this.bonusFactor/50;
+            Phaser.Actions.Call(this.obstacles.getChildren(), function(ob){
+                ob.body.velocity.y += this.bonusFactor/50;
+            }, this);
             this.scrollSpeed += 0.02;
             this.bonusFactor++;
         }
