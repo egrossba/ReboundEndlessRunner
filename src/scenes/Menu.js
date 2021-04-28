@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene {
         this.load.atlas('platformer_atlas', 'kenny_sheet.png', 'kenny_sheet.json');
         this.load.image('groundScroll', 'ground.png');
         this.load.image('talltrees', 'talltrees.png');
+        this.load.image('butler', 'butler.png');
+        this.load.image('bunny', 'bunny.png');
     }
 
     create() {

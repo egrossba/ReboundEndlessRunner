@@ -7,12 +7,12 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
     }
 
     init(){
+        this.setScale(.12).setOrigin(0.5);
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
         this.mode = 'up';    
         this.fakeGrav = 100;    
-        this.setScale(1.25);
     }
 
     update() {

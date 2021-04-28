@@ -6,6 +6,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
     }
 
     init(){
+        this.setScale(.1).setOrigin(0.5);
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true).setBounce(1);
         this.mode = 'up';
     }

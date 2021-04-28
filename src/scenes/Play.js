@@ -27,9 +27,9 @@ class Play extends Phaser.Scene {
         }
 
         // platform and character
-        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'platformer_atlas', 'fly_normal').setOrigin(0.5);
-        this.character = new Character(this, game.config.width/2, 0, 'platformer_atlas', 'front').setScale(SCALE).setOrigin(0.5);
-        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal').setScale(3).setOrigin(0.5);
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butler');
+        this.character = new Character(this, game.config.width/2, 0, 'bunny');
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal');
         this.player.init();
         this.character.init();
         this.monster.init();
@@ -51,7 +51,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(o.body.touching.down && c.body.touching.up){
                 c.setVelocityY(VELOCITY);
-                if(this.player.y < c.y + c.height/2 + this.player.height){
+                if(this.player.y < c.y + c.displayHeight/2 + this.player.displayHeight){
                     // failsafe for cloud collision bug, ty Adam Smith
                     c.y = this.player.y + 1;
                 }
