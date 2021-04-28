@@ -63,6 +63,8 @@ class Play extends Phaser.Scene {
 
         // score
         this.score = 0;
+        this.highScore = 0;
+
         this.scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -142,6 +144,21 @@ class Play extends Phaser.Scene {
         this.character.setAlpha(0);
         this.character.body.enable = false;
 
+        // check for high score in local storage
+        if(localStorage.getItem('highScore') != null) {
+            let storedScore = parseInt(localStorage.getItem('highScore'));
+            // see if current score is higher than stored score
+            if(this.score > storedScore) {
+                localStorage.setItem('highScore', this.score.toString());
+                this.highScore = this.score;
+            } else {
+                this.highScore = parseInt(localStorage.getItem('highScore'));
+            }
+        } else {
+            this.highScore = this.score;
+            localStorage.setItem('highScore', this.highScore.toString());
+        }
+
         let loserConfig = {
             fontFamily: 'Courier',
             fontSize: '48px',
@@ -155,6 +172,7 @@ class Play extends Phaser.Scene {
         }
 
         this.loserText = this.add.text(game.config.width/2 - 150, game.config.height/2 - 50, '[W]hoops...', loserConfig);
+        this.hScoreText = this.add.text(game.config.width/2 - 250, game.config.height/2 + 50, 'High Score: ' + this.highScore, loserConfig);
     }
 
     tickScore() {
