@@ -30,7 +30,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         } else if(this.cursors.down.isDown) {
             this.setVelocityY(VELOCITY);
         } else {
-            this.setVelocityY(this.fakeGrav);
+            this.setVelocityY(0);
         }
 
         // form changes
