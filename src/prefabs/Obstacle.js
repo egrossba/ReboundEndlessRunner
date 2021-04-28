@@ -6,8 +6,9 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     init(){
         this.body.allowGravity = false;
         this.setImmovable(true);
-        this.reset();
         this.setVelocityY(VELOCITY/2);
+        this.yOffset = Math.random()*200;
+        this.reset();
     }
 
     update() {
@@ -18,6 +19,6 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
     reset() {
         let rand = Math.random()*2000;
-        this.y = -rand;
+        this.y = -rand - this.yOffset;
     }
 }
