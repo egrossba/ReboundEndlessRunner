@@ -162,7 +162,7 @@ class Play extends Phaser.Scene {
         let loserConfig = {
             fontFamily: 'Courier',
             fontSize: '48px',
-            backgroundColor: '',
+            backgroundColor: '#FFFFFF',
             color: '#DC143C',
             align: 'center',
             padding: {
@@ -171,7 +171,7 @@ class Play extends Phaser.Scene {
             }
         }
 
-        this.loserText = this.add.text(game.config.width/2 - 150, game.config.height/2 - 50, '[W]hoops...', loserConfig);
+        this.loserText = this.add.text(game.config.width/2 - 160, game.config.height/2 - 50, '[W]hoops...', loserConfig);
         this.hScoreText = this.add.text(game.config.width/2 - 250, game.config.height/2 + 50, 'High Score: ' + this.highScore, loserConfig);
     }
 
