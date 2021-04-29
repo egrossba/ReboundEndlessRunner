@@ -17,13 +17,16 @@ class Play extends Phaser.Scene {
         this.background.setTint('808080');
 
         // obstacles
+        this.nums = [];
+        Phaser.Utils.Array.Add(this.nums, [1, 2, 3, 4]);
+        Phaser.Utils.Array.Shuffle(this.nums);
         this.obstacles = this.physics.add.group({runChildUpdate: true});
         for(let i = 0; i < 4; i++){
-            let obs = new Obstacle(this, game.config.width - 65, game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0.5);
+            let obs = new Obstacle(this, game.config.width - 65, -game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0.5);
             obs.x -= obs.width * i + 3;
             this.obstacles.add(obs);
             this.add.existing(obs);
-            obs.init();
+            obs.init(this.nums[i]);
         }
 
         // platform and character
@@ -180,6 +183,15 @@ class Play extends Phaser.Scene {
         if(!this.youLost){
             this.score += 1;
             this.scoreText.text = this.score;
+        }
+    }
+
+    shuffleObs(){
+        // update obstacles
+        Phaser.Utils.Array.Shuffle(this.nums);
+        let obs = this.obstacles.getChildren();
+        for(let i = 0; i < this.nums.length; i++){
+            obs[i].yOffset = this.nums[i] * obs[i].displayHeight*4;
         }
     }
 }

@@ -3,12 +3,12 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
     }
 
-    init(){
+    init(num){
         this.body.allowGravity = false;
         this.setImmovable(true);
         this.setVelocityY(VELOCITY/2);
-        this.yOffset = (Math.random()*4)*300;
-        this.reset();
+        this.yOffset = num * this.displayHeight*4;
+        this.y = -this.yOffset;
     }
 
     update() {
@@ -18,7 +18,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
     }
 
     reset() {
-        let rand = Math.random()*10;
-        this.y = -rand*100 - this.yOffset;
+        this.scene.shuffleObs();
+        this.y = -this.yOffset;
     }
 }
