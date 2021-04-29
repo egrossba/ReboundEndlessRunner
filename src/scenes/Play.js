@@ -37,20 +37,18 @@ class Play extends Phaser.Scene {
         this.character.init();
         this.monster.init();
 
-
-        // create keys
-        // keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        // keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        // keyDOWN= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        // keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
-
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // add physics colliders
-        this.physics.add.collider(this.character, this.player);
+        this.physics.add.overlap(this.character, this.player, (c, p) => {
+            // bounce character off platform
+            if(c.body.touching.down && !c.body.touching.up){
+                c.bounce();
+            }
+        });
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(o.body.touching.down && c.body.touching.up){
                 c.setVelocityY(VELOCITY);
@@ -101,11 +99,6 @@ class Play extends Phaser.Scene {
         // move player and obstacles
         this.player.update();
         this.monster.update();
-
-        // bounce character off platform
-        if(this.player.body.touching.up && !this.character.body.touching.up){
-            this.character.bounce();
-        }
 
         // rotate character
         this.character.angle += this.character.body.velocity.x/100;
