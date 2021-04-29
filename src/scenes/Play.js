@@ -43,7 +43,7 @@ class Play extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // add physics colliders
-        this.physics.add.overlap(this.character, this.player, (c, p) => {
+        this.physics.add.collider(this.character, this.player, (c, p) => {
             // bounce character off platform
             if(c.body.touching.down && !c.body.touching.up){
                 c.bounce();

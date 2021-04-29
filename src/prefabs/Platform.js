@@ -14,9 +14,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         this.mode = 'up';   
         
         // player movement
-        this.sheen.input.on('pointerdown', function (pointer){
-            this.sheen.input.mouse.requestPointerLock();
-        }, this);
+        this.sheen.input.mouse.requestPointerLock();
 
         this.sheen.input.on('pointermove', function (pointer) {
             if (this.sheen.input.mouse.locked)
