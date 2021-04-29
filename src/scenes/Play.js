@@ -43,18 +43,13 @@ class Play extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // add physics colliders
-        this.physics.add.collider(this.character, this.player, (c, p) => {
-            // bounce character off platform
-            if(c.body.touching.down && !c.body.touching.up){
-                c.bounce();
-            }
-        });
+        this.physics.add.overlap(this.character, this.player);
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(o.body.touching.down && c.body.touching.up){
                 c.setVelocityY(VELOCITY);
                 if(this.player.y < c.y + c.displayHeight/2 + this.player.displayHeight){
                     // failsafe for cloud collision bug, ty Adam Smith
-                    c.y = this.player.y + 1;
+                    c.y = this.player.y + this.player.displayHeightw;
                 }
             }
         });
@@ -99,6 +94,11 @@ class Play extends Phaser.Scene {
         // move player and obstacles
         this.player.update();
         this.monster.update();
+
+        // bounce character off platform
+        if(this.player.body.touching.up && !this.character.body.touching.up){
+            this.character.bounce();
+        }
 
         // rotate character
         this.character.angle += this.character.body.velocity.x/100;
