@@ -17,7 +17,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocity(0, JUMP_VELOCITY);
                 break;
             case 'down':
-                this.setVelocity(0, JUMP_VELOCITY/2);
+                this.setVelocity(0, JUMP_VELOCITY*3/5);
                 break;
             case 'left':
                 this.setVelocity(-VELOCITY/2, JUMP_VELOCITY*3/4);

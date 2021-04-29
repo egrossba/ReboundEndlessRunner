@@ -43,7 +43,12 @@ class Play extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // add physics colliders
-        this.physics.add.overlap(this.character, this.player);
+        this.physics.add.overlap(this.character, this.player, (c, p) => {
+            // bounce character off platform
+            if(p.body.touching.up && !c.body.touching.up){
+                c.bounce();
+            }
+        });
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
             if(o.body.touching.down && c.body.touching.up){
                 c.setVelocityY(VELOCITY);
@@ -53,6 +58,7 @@ class Play extends Phaser.Scene {
                 }
             }
         });
+        this.physics.add.overlap(this.character, this.monster, this.gameOver, null, this);
 
         // gameover bool
         this.youLost = false;
@@ -95,11 +101,6 @@ class Play extends Phaser.Scene {
         this.player.update();
         this.monster.update();
 
-        // bounce character off platform
-        if(this.player.body.touching.up && !this.character.body.touching.up){
-            this.character.bounce();
-        }
-
         // rotate character
         this.character.angle += this.character.body.velocity.x/100;
 
@@ -122,7 +123,7 @@ class Play extends Phaser.Scene {
         }
 
         // increase difficulty
-        if(this.score != 0 && this.score < 2400 && this.score % 300 == 0){
+        if(this.score != 0 && this.score < 2000 && this.score % 200 == 0){
             this.player.fakeGrav += this.bonusFactor/50;
             Phaser.Actions.Call(this.obstacles.getChildren(), function(ob){
                 ob.body.velocity.y += this.bonusFactor/50;
@@ -130,8 +131,6 @@ class Play extends Phaser.Scene {
             this.scrollSpeed += 0.02;
             this.bonusFactor++;
         }
-
-        this.physics.world.collide(this.character, this.monster, this.gameOver, null, this);
     }
 
     gameOver(){
@@ -174,7 +173,7 @@ class Play extends Phaser.Scene {
     tickScore() {
         // update score
         if(!this.youLost){
-            this.score += 1;
+            this.score += 10;
             this.scoreText.text = this.score;
         }
     }
