@@ -17,10 +17,6 @@ class Play extends Phaser.Scene {
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
         this.background.setTint('808080');
 
-        // obstacles
-        this.obstacles = this.physics.add.group({runChildUpdate: true});
-        this.addObstacle();
-
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butler');
         this.character = new Character(this, game.config.width/2, 0, 'bunny');
@@ -28,6 +24,10 @@ class Play extends Phaser.Scene {
         this.player.init();
         this.character.init();
         this.monster.init();
+
+        // obstacles
+        this.obstacles = this.physics.add.group({runChildUpdate: true});
+        this.addObstacle();
 
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
