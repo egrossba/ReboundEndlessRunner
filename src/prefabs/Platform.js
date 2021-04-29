@@ -4,7 +4,6 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         game.input.mouse.capture = true;
-        this.sheen = scene;
     }
 
     init(){
