@@ -3,6 +3,7 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this);
+        game.input.mouse.capture = true;
         this.sheen = scene;
     }
 
@@ -11,24 +12,17 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         this.body.immovable = true;
         this.setMaxVelocity(MAX_X_VEL, MAX_Y_VEL).setCollideWorldBounds(true);
-        this.mode = 'up';   
-        
-        // player movement
-        this.sheen.input.mouse.requestPointerLock();
-
-        this.sheen.input.on('pointermove', function (pointer) {
-            if (this.sheen.input.mouse.locked)
-            {
-                this.x += pointer.movementX;
-                this.y += pointer.movementY;
-
-                this.x = Phaser.Math.Wrap(this.x, 0, game.config.width);
-                this.y = Phaser.Math.Wrap(this.y, 0, game.config.height);
-            }
-        }, this);
+        this.mode = 'up';
     }
 
+
     update() {
+        this.x = game.input.mousePointer.x;
+        this.y = game.input.mousePointer.y;
+
+        this.x = Phaser.Math.Clamp(this.x, this.displayWidth/2, game.config.width - this.displayWidth/2);
+        this.y = Phaser.Math.Clamp(this.y, this.displayHeight/2, game.config.height - this.displayHeight/2);
+
         // form changes
         switch(this.mode){
             case 'up':
