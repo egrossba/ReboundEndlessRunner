@@ -11,23 +11,15 @@ class Play extends Phaser.Scene {
         this.physics.world.gravity.y = GRAVITY;
         this.scrollSpeed = 3;
         this.bonusFactor = 1;
+        this.obsVel = VELOCITY/2;
 
         // set bg
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
         this.background.setTint('808080');
 
         // obstacles
-        this.nums = [];
-        Phaser.Utils.Array.Add(this.nums, [1, 2, 3, 4]);
-        Phaser.Utils.Array.Shuffle(this.nums);
         this.obstacles = this.physics.add.group({runChildUpdate: true});
-        for(let i = 0; i < 4; i++){
-            let obs = new Obstacle(this, game.config.width - 65, -game.config.height, 'platformer_atlas', 'cloud_1').setOrigin(0.5);
-            obs.x -= obs.width * i + 3;
-            this.obstacles.add(obs);
-            this.add.existing(obs);
-            obs.init(this.nums[i]);
-        }
+        this.addObstacle();
 
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butler');
@@ -124,10 +116,7 @@ class Play extends Phaser.Scene {
 
         // increase difficulty
         if(this.score != 0 && this.score < 2000 && this.score % 200 == 0){
-            this.player.fakeGrav += this.bonusFactor/50;
-            Phaser.Actions.Call(this.obstacles.getChildren(), function(ob){
-                ob.body.velocity.y += this.bonusFactor/50;
-            }, this);
+            this.obsVel += this.bonusFactor/50;
             this.scrollSpeed += 0.02;
             this.bonusFactor++;
         }
@@ -178,12 +167,9 @@ class Play extends Phaser.Scene {
         }
     }
 
-    shuffleObs(){
-        // update obstacles
-        Phaser.Utils.Array.Shuffle(this.nums);
-        let obs = this.obstacles.getChildren();
-        for(let i = 0; i < this.nums.length; i++){
-            obs[i].yOffset = this.nums[i] * obs[i].displayHeight*4;
-        }
+    addObstacle(){
+        let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, 'platformer_atlas', 'cloud_1');
+        this.obstacles.add(obs);
+        obs.init(this.obsVel);
     }
 }

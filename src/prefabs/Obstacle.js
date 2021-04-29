@@ -3,22 +3,25 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, texture, frame);
     }
 
-    init(num){
+    init(vel){
+        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
+        this.x = Phaser.Math.Between(this.displayWidth/2, game.config.width - this.displayWidth/2);
+        this.y = -this.displayHeight/2;
         this.body.allowGravity = false;
         this.setImmovable(true);
-        this.setVelocityY(VELOCITY/2);
-        this.yOffset = num * this.displayHeight*4;
-        this.y = -this.yOffset;
+        this.setVelocityY(vel);
+        this.newObstacle = true;
     }
 
     update() {
-        if (this.y >= game.config.height + this.height/2){
-            this.reset();
+        if(this.newObstacle && this.y > game.config.height/4){
+            this.newObstacle = false;
+            this.scene.addObstacle();
         }
-    }
 
-    reset() {
-        this.scene.shuffleObs();
-        this.y = -this.yOffset;
+        if(this.y > game.config.height + this.height/2){
+            this.destroy();
+        }
     }
 }
