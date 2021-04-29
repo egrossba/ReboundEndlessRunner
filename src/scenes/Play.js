@@ -162,7 +162,7 @@ class Play extends Phaser.Scene {
     tickScore() {
         // update score
         if(!this.youLost){
-            this.score += 10;
+            this.score += 1;
             this.scoreText.text = this.score;
         }
     }
