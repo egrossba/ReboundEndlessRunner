@@ -27,10 +27,10 @@ class Menu extends Phaser.Scene {
             }
         }
 
-        this.menuText = this.add.text(game.config.width/2 - 220, game.config.height/2 - 200, 
-            'Use arrow keys to move', menuConfig);
-        this.menuText2 = this.add.text(game.config.width/2 - 250, game.config.height/2 - 100, 
-            'and WASD to switch bounces', menuConfig);
+        this.menuText = this.add.text(game.config.width/2 - 240, game.config.height/2 - 200, 
+            'Use the mouse to move and', menuConfig);
+        this.menuText2 = this.add.text(game.config.width/2 - 255, game.config.height/2 - 100, 
+            'WASD to toggle bounce modes', menuConfig);
         this.menuText3 = this.add.text(game.config.width/2 - 180, game.config.height/2, 
             'Press [W] to start', menuConfig);
         
