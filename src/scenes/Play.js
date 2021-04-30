@@ -27,7 +27,9 @@ class Play extends Phaser.Scene {
 
         // obstacles
         this.obstacles = this.physics.add.group({runChildUpdate: true});
-        this.addObstacle();
+        this.time.delayedCall(3000, () => { 
+            this.addObstacle(); 
+        });
 
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
