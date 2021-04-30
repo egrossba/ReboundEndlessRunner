@@ -17,6 +17,14 @@ class Play extends Phaser.Scene {
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
         this.background.setTint('808080');
 
+        this.bgm = this.sound.add('bgm', {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            loop: true
+        });
+        this.bgm.play();
+
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butler');
         this.character = new Character(this, game.config.width/2, 0, 'bunny');
@@ -41,6 +49,7 @@ class Play extends Phaser.Scene {
             // bounce character off platform
             if(p.body.touching.up && !c.body.touching.up){
                 c.bounce();
+                this.sound.play('bunnyjump');
             }
         });
         this.physics.add.collider(this.character, this.obstacles, (c, o) => {
@@ -51,6 +60,7 @@ class Play extends Phaser.Scene {
                     c.y = this.player.y + this.player.displayHeight;
                 }
             }
+            this.sound.play('hit');
         });
         this.physics.add.overlap(this.character, this.monster, this.gameOver, null, this);
 
@@ -127,6 +137,7 @@ class Play extends Phaser.Scene {
     gameOver(){
         this.youLost = true;
 
+        this.bgm.stop();
         this.character.setAlpha(0);
         this.character.body.enable = false;
 

@@ -12,6 +12,9 @@ class Menu extends Phaser.Scene {
         this.load.image('talltrees', 'talltrees.png');
         this.load.image('butler', 'butler.png');
         this.load.image('bunny', 'bunny.png');
+        this.load.audio('bgm', 'bgm.wav');
+        this.load.audio('bunnyjump', 'bunnyjump.wav');
+        this.load.audio('hit', 'hit.wav');
     }
 
     create() {
