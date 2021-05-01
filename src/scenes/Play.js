@@ -22,7 +22,10 @@ class Play extends Phaser.Scene {
             rate: 1,
             loop: true
         });
-        this.bgm.play();
+
+        this.time.delayedCall(500, () => { 
+            this.bgm.play();
+        });
 
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butlerGlowUp');
@@ -92,6 +95,8 @@ class Play extends Phaser.Scene {
 
     update() {
         if(this.youLost && Phaser.Input.Keyboard.JustDown(keyW)){
+            this.sound.stopAll();
+            this.sound.play('startGame');
             this.scene.restart();
         }
 
