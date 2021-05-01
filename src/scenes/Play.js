@@ -14,8 +14,7 @@ class Play extends Phaser.Scene {
         this.obsVel = VELOCITY/2;
 
         // set bg
-        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'talltrees').setOrigin(0,0);
-        this.background.setTint('808080');
+        this.mansion = this.add.tileSprite(0, 0, 0, 0, 'backgroundStuff').setOrigin(0).setScale(SCALE);
 
         this.bgm = this.sound.add('bgm', {
             mute: false,
@@ -26,7 +25,7 @@ class Play extends Phaser.Scene {
         this.bgm.play();
 
         // platform and character
-        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butler');
+        this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butlerGlowUp');
         this.character = new Character(this, game.config.width/2, 0, 'bunny');
         this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal');
         this.player.init();
@@ -96,7 +95,7 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
 
-        this.background.tilePositionY -= this.scrollSpeed;
+        this.mansion.tilePositionY -= this.scrollSpeed;
 
         // match monster with character
         this.monster.x = this.character.x;

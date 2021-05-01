@@ -25,9 +25,13 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
         // form changes
         switch(this.mode){
             case 'up':
+                this.setTexture('butlerGlowUp');
+                this.body.setSize();
                 this.setFlip(false, false);
                 break;
             case 'down':
+                this.setTexture('butlerGlowDown');
+                this.body.setSize();
                 this.setFlip(false, true);
                 break;
             case 'left':
