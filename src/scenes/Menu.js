@@ -26,6 +26,9 @@ class Menu extends Phaser.Scene {
         this.load.audio('bgm', 'bgm.wav');
         this.load.audio('bunnyjump', 'bunnyjump.wav');
         this.load.audio('hit', 'hit.wav');
+        this.load.audio('startGame', 'startGame.wav');
+        this.load.audio('formChange', 'formChange.wav');
+        this.load.audio('lose', 'lose.wav');
     }
 
     create() {
@@ -54,6 +57,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyW)){
+            this.sound.play('startGame');
             this.scene.start('playScene');
         }
     }

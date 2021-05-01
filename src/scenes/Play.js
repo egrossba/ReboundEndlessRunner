@@ -109,18 +109,22 @@ class Play extends Phaser.Scene {
 
         // switch forms
         if(Phaser.Input.Keyboard.JustDown(keyA)) {
+            this.sound.play('formChange');
             this.character.mode = 'left';
             this.player.mode = 'left';
         }
         if(Phaser.Input.Keyboard.JustDown(keyW)) {
+            this.sound.play('formChange');
             this.character.mode = 'up';   
             this.player.mode = 'up';       
         }
         if(Phaser.Input.Keyboard.JustDown(keyS)) {
+            this.sound.play('formChange');
             this.character.mode = 'down'; 
             this.player.mode = 'down';       
         }
         if(Phaser.Input.Keyboard.JustDown(keyD)) {
+            this.sound.play('formChange');
             this.character.mode = 'right';   
             this.player.mode = 'right';     
         }
@@ -134,6 +138,8 @@ class Play extends Phaser.Scene {
     }
 
     gameOver(){
+        this.sound.play('lose');
+
         this.youLost = true;
 
         this.bgm.stop();
