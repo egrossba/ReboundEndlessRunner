@@ -64,7 +64,7 @@ class Menu extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.sound.play('startGame');
             this.cameras.main.pan(game.config.width/2, game.config.height*11.5, 2000, 'Power2');
-            this.time.delayedCall(3000, () => { 
+            this.time.delayedCall(2000, () => { 
                 this.scene.start('playScene');
             });
         }
