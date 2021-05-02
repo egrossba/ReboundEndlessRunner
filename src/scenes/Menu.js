@@ -32,6 +32,11 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        // camera
+        for(let i = 0; i < 12; i++){
+            this.add.sprite(0, game.config.height*i, 'backgroundStuff').setOrigin(0).setScale(SCALE);
+        }
+
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '32px',
@@ -44,11 +49,11 @@ class Menu extends Phaser.Scene {
             }
         }
 
-        this.menuText = this.add.text(game.config.width/2 - 240, game.config.height/2 - 200, 
+        this.menuText = this.add.text(game.config.width/2 - 240, game.config.height/2 - 150, 
             'Use the mouse to move and', menuConfig);
-        this.menuText2 = this.add.text(game.config.width/2 - 255, game.config.height/2 - 100, 
+        this.menuText2 = this.add.text(game.config.width/2 - 255, game.config.height/2 - 50, 
             'WASD to toggle bounce modes', menuConfig);
-        this.menuText3 = this.add.text(game.config.width/2 - 180, game.config.height/2, 
+        this.menuText3 = this.add.text(game.config.width/2 - 180, game.config.height/2 + 50, 
             'Press [W] to start', menuConfig);
         
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -58,7 +63,10 @@ class Menu extends Phaser.Scene {
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyW)){
             this.sound.play('startGame');
-            this.scene.start('playScene');
+            this.cameras.main.pan(game.config.width/2, game.config.height*11.5, 2000, 'Power2');
+            this.time.delayedCall(3000, () => { 
+                this.scene.start('playScene');
+            });
         }
     }
 }

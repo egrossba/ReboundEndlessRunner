@@ -27,7 +27,7 @@ class Play extends Phaser.Scene {
 
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butlerGlowUp');
-        this.character = new Character(this, game.config.width/2, 0, 'bunny');
+        this.character = new Character(this, game.config.width/2, game.config.height/2, 'bunny');
         this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal');
         this.player.init();
         this.character.init();
@@ -147,6 +147,7 @@ class Play extends Phaser.Scene {
 
     gameOver(){
         this.sound.play('lose');
+        this.cameras.main.shake(100, 0.01);
 
         this.youLost = true;
 
