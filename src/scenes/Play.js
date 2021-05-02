@@ -3,11 +3,9 @@ class Play extends Phaser.Scene {
         super('playScene');
     }
 
-    preload(){
-
-    }
-
     create() {
+        this.layer = this.add.layer();
+
         this.physics.world.gravity.y = GRAVITY;
         this.scrollSpeed = 3;
         this.bonusFactor = 1;
@@ -41,6 +39,11 @@ class Play extends Phaser.Scene {
             this.addObstacle(); 
         });
 
+        // layer
+        let objects = [this.mansion, this.player, this.character, this.monster];
+        this.layer.add(objects);
+
+        // keys
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -194,5 +197,6 @@ class Play extends Phaser.Scene {
         let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, 'platformer_atlas', 'cloud_1');
         this.obstacles.add(obs);
         obs.init(this.obsVel);
+        this.layer.addAt(obs, 1);
     }
 }
