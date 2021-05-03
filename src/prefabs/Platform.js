@@ -35,10 +35,14 @@ class Platform extends Phaser.Physics.Arcade.Sprite {
                 this.setFlip(false, true);
                 break;
             case 'left':
-                this.setFlip(false, false);
+                this.setTexture('side');
+                this.body.setSize();
+                this.setFlip(true, false);
                 break;
             case 'right':
-                this.setFlip(true, false);
+                this.setTexture('side');
+                this.body.setSize();
+                this.setFlip(false, false);
                 break;
         }
     }
