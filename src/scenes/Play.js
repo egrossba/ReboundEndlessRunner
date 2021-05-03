@@ -140,7 +140,7 @@ class Play extends Phaser.Scene {
         }
 
         // increase difficulty
-        if(this.score != 0 && this.score < 2000 && this.score % 200 == 0){
+        if(this.score != 0 && this.score < 1000 && this.score % 100 == 0){
             this.obsVel += this.bonusFactor/50;
             this.scrollSpeed += 0.02;
             this.bonusFactor++;
