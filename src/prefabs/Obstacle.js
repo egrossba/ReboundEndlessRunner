@@ -9,7 +9,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         this.x = Phaser.Math.Between(this.displayWidth/2, game.config.width - this.displayWidth/2);
         this.y = -this.displayHeight/2;
         this.body.allowGravity = false;
-        this.setImmovable(true);
+        this.setImmovable(true).setSize(2100,2100);
         this.setVelocityY(vel);
         this.rot = Phaser.Math.FloatBetween(0.1, 0.4);
         this.spin = Phaser.Math.Between(0, 1);

@@ -6,16 +6,29 @@ class Monster extends Phaser.Physics.Arcade.Sprite {
     }
 
     init(){
-        this.setScale(3).setOrigin(0.5);
+        this.setScale(SCALE/3*2).setOrigin(0.5);
         this.body.allowGravity = false;
         this.body.immovable = true;
-        this.setCollideWorldBounds(true);
+        //this.setCollideWorldBounds(true);
+        this.anims.create({ 
+            key: 'chomp', 
+            frames: this.anims.generateFrameNames('monster_atlas', {      
+                prefix: 'Timeline 1_',
+                start: 0,
+                end: 13,
+                suffix: '',
+                zeroPad: 4 
+            }), 
+            frameRate: 20,
+            repeat: -1
+        });
+        this.anims.play('chomp', true);
     }
 
     update() {
         this.x = Phaser.Math.Clamp(
             this.x,
-            this.width + borderPadding + 5,
-            game.config.width - this.width - borderPadding - 5);
+            this.displayWidth/2,
+            game.config.width - this.displayWidth/2);
     }
 }

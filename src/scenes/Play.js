@@ -28,7 +28,7 @@ class Play extends Phaser.Scene {
         // platform and character
         this.player = new Platform(this, game.config.width/2, game.config.height/2, 'butlerGlowUp');
         this.character = new Character(this, game.config.width/2, 0, 'bunny');
-        this.monster = new Monster(this, game.config.width/2, game.config.height - 30, 'platformer_atlas', 'slime_normal');
+        this.monster = new Monster(this, game.config.width/2, game.config.height - 85, 'monster_atlas', 'Timeline 1_0000');
         this.player.init();
         this.character.init();
         this.monster.init();
