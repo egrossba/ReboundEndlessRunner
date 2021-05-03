@@ -13,7 +13,7 @@ class Monster extends Phaser.Physics.Arcade.Sprite {
         this.anims.create({ 
             key: 'chomp', 
             frames: this.anims.generateFrameNames('monster_atlas', {      
-                prefix: 'Timeline 1_',
+                prefix: 'Timeline 2_',
                 start: 0,
                 end: 13,
                 suffix: '',
