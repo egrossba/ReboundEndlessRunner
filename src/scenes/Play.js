@@ -39,6 +39,8 @@ class Play extends Phaser.Scene {
             this.addObstacle(); 
         });
 
+        this.obsKeys = ['chandelier', 'mirror', 'sun'];
+
         // layer
         let objects = [this.mansion, this.player, this.character, this.monster];
         this.layer.add(objects);
@@ -196,7 +198,7 @@ class Play extends Phaser.Scene {
 
     addObstacle(){
         if(!this.youLost){
-            let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, 'chandelier').setScale(SCALE/10);
+            let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, this.obsKeys[Math.floor(Math.random() * this.obsKeys.length)]).setScale(SCALE/10);
             this.obstacles.add(obs);
             obs.init(this.obsVel);
             this.layer.addAt(obs, 1);

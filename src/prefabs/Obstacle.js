@@ -11,6 +11,8 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         this.body.allowGravity = false;
         this.setImmovable(true);
         this.setVelocityY(vel);
+        this.rot = Phaser.Math.FloatBetween(0.1, 0.4);
+        this.spin = Phaser.Math.Between(0, 1);
         this.newObstacle = true;
     }
 
@@ -23,5 +25,7 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
         if(this.y > game.config.height + this.height/2){
             this.destroy();
         }
+
+        this.spin ? this.angle += this.rot : this.angle -= this.rot;
     }
 }
