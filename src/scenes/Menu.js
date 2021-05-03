@@ -11,6 +11,7 @@ class Menu extends Phaser.Scene {
         this.load.image('groundScroll', 'ground.png');
         this.load.image('talltrees', 'talltrees.png');
         this.load.image('side', 'side.png');
+        this.load.image('sidealt', 'sidealt.png');
         this.load.image('bunny', 'bunny.png');
         this.load.image('butlerGlowDown', 'lowbouncer.png');
         this.load.image('butlerGlowUp', 'highbouncer.png');
