@@ -196,7 +196,7 @@ class Play extends Phaser.Scene {
 
     addObstacle(){
         if(!this.youLost){
-            let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, 'platformer_atlas', 'cloud_1');
+            let obs = new Obstacle(this, game.config.width/2, -game.config.height/2, 'chandelier').setScale(SCALE/10);
             this.obstacles.add(obs);
             obs.init(this.obsVel);
             this.layer.addAt(obs, 1);

@@ -14,14 +14,8 @@ class Menu extends Phaser.Scene {
         this.load.image('bunny', 'bunny.png');
         this.load.image('butlerGlowDown', 'lowbouncer.png');
         this.load.image('butlerGlowUp', 'highbouncer.png');
-        this.load.image('backgroundPlain', 'BGNEWempty.png');
         this.load.image('backgroundStuff', 'BGNEW2.png');
-        this.load.image('shadow', 'shadow.png');
-        this.load.image('tear1', 'tear1.png');
-        this.load.image('tear2', 'tear2.png');
-        this.load.image('tear3', 'tear3.png');
-        this.load.image('web', 'web.png');
-
+        this.load.image('chandelier', 'chandelier.png');
 
         this.load.audio('bgm', 'bgm.wav');
         this.load.audio('bunnyjump', 'bunnyjump.wav');
