@@ -36,4 +36,4 @@ let MAX_Y_VEL = 2000;
 let JUMP_VELOCITY = -750;
 let GRAVITY = 1500;
 
-let keyLEFT, keyUP, keyDOWN, keyRIGHT, keyW, keyA, keyS, keyD;
+let keyLEFT, keyUP, keyDOWN, keyRIGHT, keyW, keyA, keyS, keyD, spacebar;
