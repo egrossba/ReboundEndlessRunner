@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene {
         this.load.image('sun', 'sun.png');
         this.load.image('heart', 'heart.png');
         this.load.image('alt_highscore_text', 'alt_highscore_text.png');
-        this.load.image('alt_restart_text', 'alt_highscore_text.png');
+        this.load.image('alt_restart_text', 'alt_restart_text.png');
         this.load.image('alt_start_text', 'alt_start_text.png');
         this.load.image('alt_tutorial_text', 'alt_tutorial_text.png');
         this.load.image('nooo', 'nooo.png');

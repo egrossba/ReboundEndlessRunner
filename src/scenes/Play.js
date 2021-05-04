@@ -50,6 +50,7 @@ class Play extends Phaser.Scene {
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyS= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         // add physics colliders
         this.physics.add.overlap(this.character, this.player, (c, p) => {
@@ -82,7 +83,7 @@ class Play extends Phaser.Scene {
             fontFamily: 'Courier',
             fontSize: '28px',
             backgroundColor: '#FFFFFF',
-            color: '#843605',
+            color: '#FF0000',
             align: 'right',
             padding: {
                 top: 5,
@@ -99,7 +100,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        if(this.youLost && Phaser.Input.Keyboard.JustDown(keyW)){
+        if(this.youLost && Phaser.Input.Keyboard.JustDown(spacebar)){
             this.sound.stopAll();
             this.sound.play('startGame');
             this.scene.restart();
@@ -175,18 +176,23 @@ class Play extends Phaser.Scene {
 
         let loserConfig = {
             fontFamily: 'Courier',
-            fontSize: '48px',
+            fontSize: '36px',
             backgroundColor: '#FFFFFF',
             color: '#DC143C',
-            align: 'center',
+            align: 'right',
             padding: {
                 top: 5,
                 bottom: 5,
-            }
+            },
+            fixedWidth: 120
         }
 
-        this.loserText = this.add.text(game.config.width/2 - 160, game.config.height/2 - 50, '[W]hoops...', loserConfig);
-        this.hScoreText = this.add.text(game.config.width/2 - 250, game.config.height/2 + 50, 'High Score: ' + this.highScore, loserConfig);
+        this.add.sprite(game.config.width/2, game.config.height/3, 'nooo').setScale(SCALE/3);
+        this.add.sprite(game.config.width/3 + 15, game.config.height/2, 'alt_highscore_text').setScale(SCALE);
+        this.add.sprite(game.config.width/2, game.config.height*3/5, 'alt_restart_text').setScale(SCALE);
+
+
+        this.hScoreText = this.add.text(game.config.width*2/3 - 15, game.config.height/2, this.highScore, loserConfig).setOrigin(0.5);
     }
 
     tickScore() {
