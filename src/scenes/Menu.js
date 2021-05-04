@@ -31,6 +31,7 @@ class Menu extends Phaser.Scene {
         this.load.image('tutorialS', 'tutorialS.png');
         this.load.image('tutorialD', 'tutorialD.png');
         this.load.image('tutorialW', 'tutorialW.png');
+        this.load.image('tutorialMove', 'tutorialMove2.png');
         this.load.image('tutorialM', 'tutorialM.png');
 
         this.load.audio('bgm', 'bgm.wav');
@@ -48,8 +49,8 @@ class Menu extends Phaser.Scene {
         }
 
         // tutorial slides
-        let slides = ['tutorialW', 'tutorialS', 'tutorialA', 'tutorialD', 'tutorialM'];
-        for(let i = 1; i < 6; i++){
+        let slides = ['tutorialMove', 'tutorialW', 'tutorialS', 'tutorialA', 'tutorialD', 'tutorialM'];
+        for(let i = 1; i < 7; i++){
             this.add.sprite(game.config.width * i, 0, 'backgroundStuff').setOrigin(0).setScale(SCALE);
             this.add.sprite(game.config.width*(2*i + 1)/2, game.config.height/2, slides[i-1]).setScale(SCALE*6/5);
         }
@@ -96,6 +97,10 @@ class Menu extends Phaser.Scene {
                 this.pos++;
             }
             else if(this.pos == 5){
+                this.cameras.main.pan(game.config.width*13/2, game.config.height/2, 500, 'Power2');
+                this.pos++;
+            }
+            else if(this.pos == 6){
                 this.cameras.main.pan(game.config.width/2, game.config.height/2, 500, 'Power2');
                 this.pos = 0;
             }
@@ -120,6 +125,10 @@ class Menu extends Phaser.Scene {
             }
             else if(this.pos == 5){
                 this.cameras.main.pan(game.config.width*9/2, game.config.height/2, 500, 'Power2');
+                this.pos--;
+            }
+            else if(this.pos == 6){
+                this.cameras.main.pan(game.config.width*11/2, game.config.height/2, 500, 'Power2');
                 this.pos--;
             }
         }
