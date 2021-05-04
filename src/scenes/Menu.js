@@ -19,6 +19,7 @@ class Menu extends Phaser.Scene {
         this.load.image('chandelier', 'chandelier.png');
         this.load.image('mirror', 'mirror.png');
         this.load.image('sun', 'sun.png');
+        this.load.image('heart', 'heart.png');
 
         this.load.audio('bgm', 'bgm.wav');
         this.load.audio('bunnyjump', 'bunnyjump.wav');
