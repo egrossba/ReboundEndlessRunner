@@ -154,6 +154,7 @@ class Play extends Phaser.Scene {
         this.youLost = true;
 
         this.bgm.stop();
+        this.monster.anims.stop();
         this.character.setAlpha(0);
         this.character.body.enable = false;
 
