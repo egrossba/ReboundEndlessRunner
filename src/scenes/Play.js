@@ -39,7 +39,7 @@ class Play extends Phaser.Scene {
             this.addObstacle(); 
         });
 
-        this.obsKeys = ['chandelier', 'mirror', 'sun', 'heart', 'eyes'];
+        this.obsKeys = ['chandelier', 'mirror', 'sun', 'heart', 'eyes', 'tea', 'hang'];
 
         // layer
         let objects = [this.mansion, this.player, this.character, this.monster];
